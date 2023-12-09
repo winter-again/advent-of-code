@@ -13,7 +13,7 @@ digit_map = {
 }
 
 
-def main(inp):
+def get_calibs(inp):
     with open(inp) as f:
         lines = f.readlines()
 
@@ -45,5 +45,5 @@ def main(inp):
 
 
 if __name__ == "__main__":
-    print(main("./inputs/day01_b_smpl.txt"))
-    print(main("./inputs/day01_a.txt"))
+    print(get_calibs("./inputs/day01_b_smpl.txt"))
+    print(get_calibs("./inputs/day01_a.txt"))
