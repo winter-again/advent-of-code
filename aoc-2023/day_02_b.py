@@ -18,6 +18,8 @@ class Game:
     id: int
     draws: list[Draw]
 
+    # maybe the more "correct" way is implementing this logic at the Draw class level
+    # and then the method here is checking if all the draws fulfill conditions...
     def check_draws(self) -> bool:
         valids = []
         for draw in self.draws:
@@ -47,6 +49,9 @@ class Game:
         greens_max = max(greens)
         blues_max = max(blues)
 
+        # shorter way looks like:
+        # reds_max = max(draw.red for draw in self.draws)
+
         return reds_max * greens_max * blues_max
 
 
@@ -73,6 +78,8 @@ def get_games(inp: str) -> int:
 
         games.append(Game(id=game_id, draws=draws_out))
 
+    # it's probably better to take this functionality out
+    # and allow this function to only handle the parsing of the games into our classes?
     powers = [game.get_power() for game in games]
     return sum(powers)
 
