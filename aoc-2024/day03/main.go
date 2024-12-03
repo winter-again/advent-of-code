@@ -36,7 +36,7 @@ func solvePart1(input string) int {
 		log.Fatal(err)
 	}
 	memStr := string(mem)
-	re := regexp.MustCompile(`mul\(\d+,\d+\)`)
+	re := regexp.MustCompile(`mul\(\d{1,3},\d{1,3}\)`)
 	parsedMem := re.FindAllString(memStr, -1)
 
 	res := make([]int, len(parsedMem))
@@ -76,7 +76,7 @@ func solvePart2(input string) int {
 		log.Fatal(err)
 	}
 	memStr := string(mem)
-	re := regexp.MustCompile(`(mul\(\d+,\d+\))|(do\(\))|(don't\(\))`)
+	re := regexp.MustCompile(`(mul\(\d{1,3},\d{1,3}\))|(do\(\))|(don't\(\))`)
 	parsedMem := re.FindAllString(memStr, -1)
 
 	var dont bool
