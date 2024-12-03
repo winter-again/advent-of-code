@@ -1,0 +1,5 @@
+create day:
+    cp -r day_templ day{{day}}
+
+test:
+    go test -v
