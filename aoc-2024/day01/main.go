@@ -92,19 +92,14 @@ func solvePart2(input string) int {
 		log.Println(err)
 	}
 
-	// O(n^2); hash map would make it O(n)?
-	counts := make([]int, len(a))
-	for i, a_val := range a {
-		for _, b_val := range b {
-			if b_val == a_val {
-				counts[i]++
-			}
-		}
+	freq := make(map[int]int, len(a))
+	for _, val := range b {
+		freq[val]++
 	}
 
 	sim := 0
-	for i, val := range a {
-		sim = sim + (val * counts[i])
+	for _, val := range a {
+		sim += val * freq[val]
 	}
 	return sim
 }
