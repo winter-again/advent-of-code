@@ -27,6 +27,14 @@ func TestPart1(t *testing.T) {
 			}
 		})
 	}
+
+	for _, test := range tests {
+		t.Run(test.Name, func(t *testing.T) {
+			if got := solvePart1NoRegex(test.Input); got != test.Expect {
+				t.Errorf("%s: expected %d but got %d", test.Name, test.Expect, got)
+			}
+		})
+	}
 }
 
 func TestPart2(t *testing.T) {
@@ -46,6 +54,14 @@ func TestPart2(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {
 			if got := solvePart2(test.Input); got != test.Expect {
+				t.Errorf("%s: expected %d but got %d", test.Name, test.Expect, got)
+			}
+		})
+	}
+
+	for _, test := range tests {
+		t.Run(test.Name, func(t *testing.T) {
+			if got := solvePart2NoRegex(test.Input); got != test.Expect {
 				t.Errorf("%s: expected %d but got %d", test.Name, test.Expect, got)
 			}
 		})
