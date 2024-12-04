@@ -21,6 +21,12 @@ func main() {
 
 		ans = solvePart1("./input.txt")
 		fmt.Println("Answer:", ans)
+
+		ans = solvePart1NoBlacklist("./input_smpl.txt")
+		fmt.Println("Answer (sample):", ans)
+
+		ans = solvePart1NoBlacklist("./input.txt")
+		fmt.Println("Answer:", ans)
 	} else {
 		ans := solvePart2("./input_smpl.txt")
 		fmt.Println("Answer (sample):", ans)
@@ -171,8 +177,45 @@ func solvePart1(input string) int {
 			}
 		}
 	}
-
 	return sum(count)
+}
+
+func solvePart1NoBlacklist(input string) int {
+	file, err := os.Open(input)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	ws := parseWordSearch(scanner)
+	nRows := len(ws)
+	nCols := len(ws[0])
+	dirs := []coord{
+		{0, -1},  // left
+		{0, 1},   // right
+		{-1, 0},  // up
+		{1, 0},   // down
+		{-1, -1}, // up-left
+		{1, 1},   // down-right
+		{-1, 1},  // up-left
+		{1, -1},  // down-left
+	}
+	count := 0
+	for i, row := range ws {
+		for j, col := range row {
+			if col == "X" {
+				for _, dir := range dirs {
+					if (i+3*dir.i >= 0 && i+3*dir.i < nRows) && (j+3*dir.j >= 0 && j+3*dir.j < nCols) {
+						if ws[i+dir.i][j+dir.j] == "M" && ws[i+2*dir.i][j+2*dir.j] == "A" && ws[i+3*dir.i][j+3*dir.j] == "S" {
+							count += 1
+						}
+					}
+				}
+			}
+		}
+	}
+	return count
 }
 
 func parseWordSearch(s *bufio.Scanner) [][]string {
