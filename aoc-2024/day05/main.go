@@ -26,8 +26,8 @@ func main() {
 		ans := solvePart2("./input_smpl.txt")
 		fmt.Println("Answer (sample):", ans)
 
-		// ans = solvePart2("./input.txt")
-		// fmt.Println("Answer:", ans)
+		ans = solvePart2("./input.txt")
+		fmt.Println("Answer:", ans)
 	}
 }
 
@@ -162,7 +162,7 @@ func solvePart2(input string) int {
 	rules = parseRules(rawRules, true)
 
 	for _, bad := range bads {
-		log.Println("FIXING >", bad)
+		// log.Println("FIXING >", bad)
 		n := len(bad)
 		var sorted bool
 		for {
@@ -173,13 +173,13 @@ func solvePart2(input string) int {
 			sorted = true
 			for i := 0; i < n-1; i++ {
 				rule := rules[bad[i]]
-				log.Println("COMP >", bad[i], bad[i+1])
+				// log.Println("COMP >", bad[i], bad[i+1])
 				if slices.Contains(rule, bad[i+1]) {
 					sorted = false
 					tmp := bad[i]
 					bad[i] = bad[i+1]
 					bad[i+1] = tmp
-					log.Println("SWAPPED >", bad)
+					// log.Println("SWAPPED >", bad)
 				}
 			}
 			n = n - 1
