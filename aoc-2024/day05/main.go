@@ -73,7 +73,7 @@ func solvePart1(input string) int {
 			}
 		}
 		if ok {
-			sum += midpt(updt)
+			sum += updt[len(updt)/2]
 		}
 	}
 	return sum
@@ -106,11 +106,6 @@ func parseUpdates(u []string) [][]int {
 		updates[i] = uInt
 	}
 	return updates
-}
-
-func midpt(s []int) int {
-	x := (len(s) - 1) / 2
-	return s[x]
 }
 
 func solvePart2(input string) int {
@@ -188,7 +183,7 @@ func solvePart2(input string) int {
 
 	sum := 0
 	for _, bad := range bads {
-		sum += midpt(bad)
+		sum += bad[len(bad)/2]
 	}
 	return sum
 }
