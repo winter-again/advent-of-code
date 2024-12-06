@@ -103,11 +103,9 @@ func solvePart2(input string) int {
 	// NOTE: max answer is 5,444
 	pos := 0
 	for _, p := range path[1:] {
-		isCycle, resMap := isCycle(mp, initI, initJ, p)
+		isCycle, _ := isCycle(mp, initI, initJ, p)
 		if isCycle {
 			pos++
-			log.Println("Cycle")
-			printMap(resMap)
 		}
 	}
 	return pos
@@ -127,8 +125,6 @@ func isCycle(m [][]string, i int, j int, p []int) (bool, [][]string) {
 	for i := 0; i < len(m); i++ {
 		visited[i] = make([][]direction, len(m[0]))
 	}
-	log.Println(len(visited))
-	log.Println(len(visited[0]))
 
 	for {
 		if slices.Contains(visited[i][j], dir) {

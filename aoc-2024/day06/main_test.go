@@ -39,7 +39,7 @@ func TestPart2(t *testing.T) {
 		{
 			Name:   "Part 2",
 			Input:  "./input.txt",
-			Expect: 9999,
+			Expect: 1946,
 		},
 	}
 
