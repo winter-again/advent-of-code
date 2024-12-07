@@ -44,6 +44,9 @@ func solvePart1(input string) int {
 	var initJ int
 	var found bool
 	for i := 0; i < len(mp); i++ {
+		if found {
+			break
+		}
 		for j := 0; j < len(mp[i]); j++ {
 			if mp[i][j] == "^" {
 				found = true
@@ -52,11 +55,9 @@ func solvePart1(input string) int {
 				break
 			}
 		}
-		if found {
-			break
-		}
 	}
-	return len(findPath(mp, initI, initJ))
+	path, _ := findPath(mp, initI, initJ)
+	return len(path)
 }
 
 func parseLabMap(s *bufio.Scanner) [][]string {
@@ -69,6 +70,49 @@ func parseLabMap(s *bufio.Scanner) [][]string {
 		log.Fatal(err)
 	}
 	return m
+}
+
+// note: order is important, with up first then 90 deg cw turns
+var dirs = [][]int{
+	{-1, 0}, {0, 1}, {1, 0}, {0, -1},
+}
+
+func findPath(m [][]string, i int, j int) ([][]int, [][]string) {
+	mp := copyMap(m)
+
+	dir := 0
+	var path [][]int
+	for {
+		ni := i + dirs[dir][0]
+		nj := j + dirs[dir][1]
+
+		if (ni < 0 || ni > len(mp)-1) || (nj < 0 || nj > len(mp[0])-1) {
+			mp[i][j] = "X"
+			path = append(path, []int{i, j})
+			break
+		}
+
+		if mp[ni][nj] == "#" {
+			dir = (dir + 1) % 4
+		} else {
+			if mp[i][j] != "X" {
+				mp[i][j] = "X"
+				path = append(path, []int{i, j})
+			}
+			i = ni
+			j = nj
+		}
+	}
+	return path, mp
+}
+
+func copyMap(mp [][]string) [][]string {
+	mpc := make([][]string, len(mp))
+	for i, row := range mp {
+		mpc[i] = make([]string, len(row))
+		copy(mpc[i], row)
+	}
+	return mpc
 }
 
 func solvePart2(input string) int {
@@ -98,7 +142,7 @@ func solvePart2(input string) int {
 		}
 	}
 
-	path := findPath(mp, initI, initJ)
+	path, _ := findPath(mp, initI, initJ)
 
 	// NOTE: max answer is 5,444
 	pos := 0
@@ -151,42 +195,4 @@ func printMap(mp [][]string) {
 	for _, r := range mp {
 		log.Println(r)
 	}
-}
-
-func copyMap(mp [][]string) [][]string {
-	mpc := make([][]string, len(mp))
-	for i, row := range mp {
-		mpc[i] = make([]string, len(row))
-		copy(mpc[i], row)
-	}
-	return mpc
-}
-
-func findPath(m [][]string, i int, j int) [][]int {
-	mp := copyMap(m)
-	dir := []int{-1, 0}
-	var path [][]int
-	for {
-		ni := i + dir[0]
-		nj := j + dir[1]
-		if (ni < 0 || ni > len(mp)-1) || (nj < 0 || nj > len(mp[0])-1) {
-			mp[i][j] = "X"
-			path = append(path, []int{i, j})
-			break
-		}
-
-		if mp[ni][nj] == "#" {
-			tmp := dir[0]
-			dir[0] = dir[1]
-			dir[1] = -tmp
-		} else {
-			if mp[i][j] != "X" {
-				mp[i][j] = "X"
-				path = append(path, []int{i, j})
-			}
-			i = ni
-			j = nj
-		}
-	}
-	return path
 }
