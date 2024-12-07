@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"slices"
 	"strings"
 )
 
@@ -162,28 +161,25 @@ type direction struct {
 
 func isCycle(m [][]string, i int, j int, p []int) (bool, [][]string) {
 	mp := copyMap(m)
-	dir := direction{-1, 0}
+	dir := 0
 	mp[p[0]][p[1]] = "O"
 
-	visited := make([][][]direction, len(m))
-	for i := 0; i < len(m); i++ {
-		visited[i] = make([][]direction, len(m[0]))
-	}
+	visited := make(map[[3]int]bool, len(m))
 
 	for {
-		if slices.Contains(visited[i][j], dir) {
+		if visited[[3]int{i, j, dir}] {
 			return true, mp
 		}
-		visited[i][j] = append(visited[i][j], dir)
-		ni := i + dir.x
-		nj := j + dir.y
+		visited[[3]int{i, j, dir}] = true
+		ni := i + dirs[dir][0]
+		nj := j + dirs[dir][1]
 
 		if (ni < 0 || ni > len(mp)-1) || (nj < 0 || nj > len(mp[0])-1) {
 			return false, mp
 		}
 
 		if mp[ni][nj] == "O" || mp[ni][nj] == "#" {
-			dir = direction{dir.y, -dir.x}
+			dir = (dir + 1) % 4
 		} else {
 			i = ni
 			j = nj
