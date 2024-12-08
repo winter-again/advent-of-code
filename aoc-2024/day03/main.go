@@ -27,6 +27,9 @@ func main() {
 
 		ans = solvePart1NoRegex("./input.txt")
 		fmt.Println("Answer w/ no regex:", ans)
+
+		ans = solvePart1NoRegex("./input.txt")
+		fmt.Println("Answer w/ no regex:", ans)
 	} else {
 		ans := solvePart2("./input_smpl_2.txt")
 		fmt.Println("Answer (sample):", ans)
