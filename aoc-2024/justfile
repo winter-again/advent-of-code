@@ -1,5 +1,5 @@
-create day:
+create-day day:
     cp -r day_tmpl day{{day}}
 
-test day:
-    go test ./day{{day}}/ -v
+test day part:
+    go test -run TestPart{{part}} ./day{{day}}/ -v
