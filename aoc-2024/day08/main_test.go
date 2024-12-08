@@ -11,12 +11,12 @@ func TestPart1(t *testing.T) {
 		{
 			Name:   "Part 1 (sample)",
 			Input:  "./input_smpl.txt",
-			Expect: 9999,
+			Expect: 14,
 		},
 		{
 			Name:   "Part 1",
 			Input:  "./input.txt",
-			Expect: 9999,
+			Expect: 359,
 		},
 	}
 
@@ -34,12 +34,12 @@ func TestPart2(t *testing.T) {
 		{
 			Name:   "Part 2 (sample)",
 			Input:  "./input_smpl.txt",
-			Expect: 9999,
+			Expect: 34,
 		},
 		{
 			Name:   "Part 2",
 			Input:  "./input.txt",
-			Expect: 9999,
+			Expect: 1293,
 		},
 	}
 
