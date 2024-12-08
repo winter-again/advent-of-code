@@ -18,26 +18,31 @@ fn main() -> io::Result<()> {
 }
 
 fn solve_part1<R: BufRead>(reader: &mut R) -> i32 {
-    let mut a: Vec<i32> = Vec::new();
-    let mut b: Vec<i32> = Vec::new();
+    // let mut a: Vec<i32> = Vec::new();
+    // let mut b: Vec<i32> = Vec::new();
+
+    let mut a = vec![];
+    let mut b = vec![];
 
     for line in reader.lines() {
-        let nums: Vec<i32> = line
-            .unwrap()
-            .split_whitespace()
-            .map(|s| s.parse().expect("num parsing err"))
-            .collect();
-        a.push(nums[0]);
-        b.push(nums[1]);
+        // let nums: Vec<i32> = line
+        //     .unwrap()
+        //     .split_whitespace()
+        //     .map(|s| s.parse().expect("num parsing err"))
+        //     .collect();
+        // a.push(nums[0]);
+        // b.push(nums[1]);
+
+        let out = line.unwrap();
+        let mut nums = out.split_whitespace();
+        a.push(nums.next().unwrap().parse::<i32>().unwrap());
+        b.push(nums.next().unwrap().parse::<i32>().unwrap());
     }
 
     a.sort();
     b.sort();
 
-    let mut ans = 0;
-    for (x, y) in a.iter().zip(b.iter()) {
-        ans += (x - y).abs();
-    }
+    let ans: i32 = std::iter::zip(a, b).map(|(x, y)| (x - y).abs()).sum();
     return ans;
 }
 
