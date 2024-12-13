@@ -166,8 +166,6 @@ func solvePart2(input string) int {
 }
 
 func numVertices(p pos, garden [][]string) int {
-	vertices := 0
-
 	up := pos{p.i + dirs[0].i, p.j + dirs[0].j}
 	down := pos{p.i + dirs[1].i, p.j + dirs[1].j}
 	left := pos{p.i + dirs[2].i, p.j + dirs[2].j}
@@ -178,6 +176,7 @@ func numVertices(p pos, garden [][]string) int {
 	downLeft := pos{p.i + 1, p.j - 1}
 	downRight := pos{p.i + 1, p.j + 1}
 
+	vertices := 0
 	if invalid(p, up, garden) {
 		if invalid(p, left, garden) {
 			vertices++
@@ -195,26 +194,27 @@ func numVertices(p pos, garden [][]string) int {
 		}
 	}
 
-	if !invalid(p, up, garden) && !invalid(p, left, garden) && invalid(p, upLeft, garden) {
-		vertices++
+	if !invalid(p, up, garden) {
+		if !invalid(p, left, garden) && invalid(p, upLeft, garden) {
+			vertices++
+		}
+		if !invalid(p, right, garden) && invalid(p, upRight, garden) {
+			vertices++
+		}
 	}
-	if !invalid(p, up, garden) && !invalid(p, right, garden) && invalid(p, upRight, garden) {
-		vertices++
-	}
-	if !invalid(p, down, garden) && !invalid(p, left, garden) && invalid(p, downLeft, garden) {
-		vertices++
-	}
-	if !invalid(p, down, garden) && !invalid(p, right, garden) && invalid(p, downRight, garden) {
-		vertices++
+	if !invalid(p, down, garden) {
+		if !invalid(p, left, garden) && invalid(p, downLeft, garden) {
+			vertices++
+		}
+		if !invalid(p, right, garden) && invalid(p, downRight, garden) {
+			vertices++
+		}
 	}
 	return vertices
 }
 
 func invalid(p pos, dir pos, garden [][]string) bool {
-	if dir.i < 0 || dir.i >= len(garden) || dir.j < 0 || dir.j >= len(garden[0]) {
-		return true
-	}
-	if garden[dir.i][dir.j] != garden[p.i][p.j] {
+	if dir.i < 0 || dir.i >= len(garden) || dir.j < 0 || dir.j >= len(garden[0]) || garden[dir.i][dir.j] != garden[p.i][p.j] {
 		return true
 	}
 	return false
