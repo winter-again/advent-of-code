@@ -178,7 +178,6 @@ func numVertices(p pos, garden [][]string) int {
 	downLeft := pos{p.i + 1, p.j - 1}
 	downRight := pos{p.i + 1, p.j + 1}
 
-	// todo: combine to not double-count?
 	if invalid(p, up, garden) {
 		if invalid(p, left, garden) {
 			vertices++
