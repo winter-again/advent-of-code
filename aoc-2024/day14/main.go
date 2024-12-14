@@ -194,8 +194,8 @@ func solvePart2(input string, nRows int, nCols int) int {
 			for _, r := range robots {
 				grid[r.pos.y][r.pos.x] = "#"
 			}
-			fmt.Println("t=", t, "--------------------------------")
-			printGrid(grid)
+			// fmt.Println("t=", t, "--------------------------------")
+			// printGrid(grid)
 
 			bestFactor = safetyFactor
 			bestIter = t
