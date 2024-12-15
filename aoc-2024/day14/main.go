@@ -23,11 +23,11 @@ func main() {
 		ans = solvePart1Modulo("./input_smpl.txt", 7, 11)
 		fmt.Println("Answer (sample w/ modulo):", ans)
 
-		// ans = solvePart1("./input.txt", 103, 101)
-		// fmt.Println("Answer:", ans)
-		//
-		// ans = solvePart1Modulo("./input.txt", 103, 101)
-		// fmt.Println("Answer (w/ modulo):", ans)
+		ans = solvePart1("./input.txt", 103, 101)
+		fmt.Println("Answer:", ans)
+
+		ans = solvePart1Modulo("./input.txt", 103, 101)
+		fmt.Println("Answer (w/ modulo):", ans)
 	} else {
 		ans := solvePart2("./input_smpl.txt", 7, 11)
 		fmt.Println("Answer (sample):", ans)
@@ -249,11 +249,11 @@ func solvePart2(input string, nRows int, nCols int) int {
 		}
 	}
 
-	if matches(grid, initGrid) {
-		printGrid(initGrid)
-		fmt.Println("---------------------------------------------------")
-		printGrid(grid)
-	}
+	// if matches(grid, initGrid) {
+	// 	printGrid(initGrid)
+	// 	fmt.Println("---------------------------------------------------")
+	// 	printGrid(grid)
+	// }
 	return bestIter
 }
 
