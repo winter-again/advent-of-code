@@ -20,8 +20,14 @@ func main() {
 		ans := solvePart1("./input_smpl.txt", 7, 11)
 		fmt.Println("Answer (sample):", ans)
 
-		ans = solvePart1("./input.txt", 103, 101)
-		fmt.Println("Answer:", ans)
+		ans = solvePart1Modulo("./input_smpl.txt", 7, 11)
+		fmt.Println("Answer (sample w/ modulo):", ans)
+
+		// ans = solvePart1("./input.txt", 103, 101)
+		// fmt.Println("Answer:", ans)
+		//
+		// ans = solvePart1Modulo("./input.txt", 103, 101)
+		// fmt.Println("Answer (w/ modulo):", ans)
 	} else {
 		ans := solvePart2("./input_smpl.txt", 7, 11)
 		fmt.Println("Answer (sample):", ans)
@@ -64,6 +70,45 @@ func solvePart1(input string, nRows int, nCols int) int {
 
 	safetyFactor := quads[0] * quads[1] * quads[2] * quads[3]
 	return safetyFactor
+}
+
+func solvePart1Modulo(input string, nRows int, nCols int) int {
+	file, err := os.Open(input)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	robots := parseRobots(scanner)
+	t := 100
+	for _, robot := range robots {
+		robot.pos.x = mod(robot.pos.x+robot.vel.x*t, nCols)
+		robot.pos.y = mod(robot.pos.y+robot.vel.y*t, nRows)
+	}
+
+	xMid := (nCols - 1) / 2
+	yMid := (nRows - 1) / 2
+	quads := make([]int, 4)
+	for _, r := range robots {
+		if r.pos.x < xMid && r.pos.y < yMid {
+			quads[0]++
+		} else if r.pos.x > xMid && r.pos.y < yMid {
+			quads[1]++
+		} else if r.pos.x < xMid && r.pos.y > yMid {
+			quads[2]++
+		} else if r.pos.x > xMid && r.pos.y > yMid {
+			quads[3]++
+		}
+	}
+
+	safetyFactor := quads[0] * quads[1] * quads[2] * quads[3]
+	return safetyFactor
+}
+
+// Go modulo behavior is diff from expected
+func mod(a int, b int) int {
+	return (a%b + b) % b
 }
 
 func printGrid[T int | string](grid [][]T) {
@@ -156,54 +201,93 @@ func solvePart2(input string, nRows int, nCols int) int {
 	scanner := bufio.NewScanner(file)
 	robots := parseRobots(scanner)
 
-	xMid := (nCols - 1) / 2
-	yMid := (nRows - 1) / 2
+	initGrid := make([][]string, nRows)
+	for i := range initGrid {
+		initGrid[i] = make([]string, nCols)
+	}
+	for i, row := range initGrid {
+		for j := range row {
+			initGrid[i][j] = "."
+		}
+	}
+	for _, r := range robots {
+		initGrid[r.pos.y][r.pos.x] = "#"
+	}
 
-	quads := make([]int, 4)
-	bestFactor := 9999999999
+	grid := make([][]string, nRows)
+	for i := range grid {
+		grid[i] = make([]string, nCols)
+	}
+	for i, row := range grid {
+		for j := range row {
+			grid[i][j] = "."
+		}
+	}
+
+	maxMeanNbrs := float64(0)
 	bestIter := 0
-	for t := 1; t <= 100_000; t++ {
+	// NOTE: turns out that after nRows*nCols time steps, grid returns to original state
+	iters := nRows * nCols
+	for t := 1; t <= iters; t++ {
 		for _, robot := range robots {
 			robot.move(nRows, nCols)
 		}
 
-		for _, r := range robots {
-			if r.pos.x < xMid && r.pos.y < yMid {
-				quads[0]++
-			} else if r.pos.x > xMid && r.pos.y < yMid {
-				quads[1]++
-			} else if r.pos.x < xMid && r.pos.y > yMid {
-				quads[2]++
-			} else if r.pos.x > xMid && r.pos.y > yMid {
-				quads[3]++
+		for i, row := range grid {
+			for j := range row {
+				grid[i][j] = "."
 			}
 		}
+		for _, r := range robots {
+			grid[r.pos.y][r.pos.x] = "#"
+		}
 
-		safetyFactor := quads[0] * quads[1] * quads[2] * quads[3]
-		if safetyFactor < bestFactor {
-			grid := make([][]string, nRows)
-			for i := range grid {
-				grid[i] = make([]string, nCols)
-			}
-
-			for i, row := range grid {
-				for j := range row {
-					grid[i][j] = "."
-				}
-			}
-			for _, r := range robots {
-				grid[r.pos.y][r.pos.x] = "#"
-			}
-			// fmt.Println("t=", t, "--------------------------------")
-			// printGrid(grid)
-
-			bestFactor = safetyFactor
+		meanNbrs := meanNeighbors(grid)
+		if meanNbrs > maxMeanNbrs {
+			maxMeanNbrs = meanNbrs
 			bestIter = t
 		}
+	}
 
-		for n := range quads {
-			quads[n] = 0
-		}
+	if matches(grid, initGrid) {
+		printGrid(initGrid)
+		fmt.Println("---------------------------------------------------")
+		printGrid(grid)
 	}
 	return bestIter
+}
+
+func matches(cand [][]string, target [][]string) bool {
+	for i, row := range cand {
+		for j := range row {
+			if cand[i][j] != target[i][j] {
+				return false
+			}
+		}
+	}
+	return true
+}
+
+func meanNeighbors(grid [][]string) float64 {
+	dirs := [][]int{{0, -1}, {1, 0}, {0, 1}, {-1, 0}}
+	var nbrList []int
+	for i, row := range grid {
+		for j := range row {
+			if grid[i][j] == "#" {
+				nbrs := 0
+				for _, dir := range dirs {
+					if (i+dir[0] >= 0 && i+dir[0] < len(grid) && j+dir[1] >= 0 && j+dir[1] < len(grid[0])) && (grid[i+dir[0]][j+dir[1]] == "#") {
+						nbrs++
+					}
+				}
+				nbrList = append(nbrList, nbrs)
+			}
+		}
+	}
+
+	sum := 0
+	for _, num := range nbrList {
+		sum += num
+	}
+	return float64(sum) / float64(len(nbrList))
 }
