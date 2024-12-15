@@ -29,6 +29,9 @@ func TestPart1(t *testing.T) {
 			if got := solvePart1(test.Input, test.NRows, test.NCols); got != test.Expect {
 				t.Errorf("%s: expected %d but got %d", test.Name, test.Expect, got)
 			}
+			if got := solvePart1Modulo(test.Input, test.NRows, test.NCols); got != test.Expect {
+				t.Errorf("%s: expected %d but got %d", test.Name, test.Expect, got)
+			}
 		})
 	}
 }
