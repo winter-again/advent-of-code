@@ -175,8 +175,6 @@ func solvePart2(input string) int {
 	}
 	defer file.Close()
 
-	_, prog := parseProg(file)
-
 	// NOTE: transl
 	// 2,4: regB = regA % 8 -> mod makes this have only 8 possibs ([0, 7]); keep only last 3 bits
 	// 1,3: regB = regB ^ 3 -> flips the first 2 bits (bin(3) = 11)
@@ -207,8 +205,10 @@ func solvePart2(input string) int {
 	// so have to determine which of those would work to print the proper "3,0"
 	// 49 satisfies both
 
+	_, prog := parseProg(file)
+
 	try := []int{0}
-	for l := 0; l < len(prog); l++ {
+	for i := 0; i < len(prog); i++ {
 		var next []int
 		for _, v := range try {
 			for b := 0; b < 8; b++ {
@@ -216,7 +216,7 @@ func solvePart2(input string) int {
 				reg := register{a: targA}
 				// log.Println("TRY:", try)
 				// log.Println("COMPARE", compute(reg, prog), prog, prog[len(prog)-1-l:])
-				if slices.Equal(compute(reg, prog), prog[len(prog)-1-l:]) {
+				if slices.Equal(compute(reg, prog), prog[len(prog)-1-i:]) {
 					next = append(next, targA)
 				}
 			}
