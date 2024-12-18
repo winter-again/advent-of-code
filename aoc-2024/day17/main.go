@@ -24,10 +24,10 @@ func main() {
 		ans = solvePart1("./input.txt")
 		fmt.Println("Answer:", ans)
 	} else {
-		// ans := solvePart2("./input_smpl_2.txt")
-		// fmt.Println("Answer (sample):", ans)
+		ans := solvePart2("./input_smpl_2.txt")
+		fmt.Println("Answer (sample):", ans)
 
-		ans := solvePart2("./input.txt")
+		ans = solvePart2("./input.txt")
 		fmt.Println("Answer:", ans)
 	}
 }

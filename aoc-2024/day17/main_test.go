@@ -31,11 +31,11 @@ func TestPart1(t *testing.T) {
 
 func TestPart2(t *testing.T) {
 	tests := []util.TestCase{
-		// {
-		// 	Name:   "Part 2 (sample)",
-		// 	Input:  "./input_smpl.txt",
-		// 	Expect: 117440,
-		// },
+		{
+			Name:   "Part 2 (sample)",
+			Input:  "./input_smpl_2.txt",
+			Expect: 117440,
+		},
 		{
 			Name:   "Part 2",
 			Input:  "./input.txt",
