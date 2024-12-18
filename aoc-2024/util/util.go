@@ -13,3 +13,9 @@ type TestCaseDay14 struct {
 	NCols  int
 	Expect int
 }
+
+type TestCaseDay17Part1 struct {
+	Name   string
+	Input  string
+	Expect string
+}
