@@ -72,12 +72,6 @@ func parseInitNums(file *os.File) []int {
 	return nums
 }
 
-// TODO: for each buyer:
-// calc prices based on the secret num
-// calc price diffs
-// (there's prob some pattern?)
-// then have to find a len 4 seq common to ALL buyers
-// such that the first occurrence of the seq ends on high price so that the sum is maximized
 func solvePart2(input string) int {
 	file, err := os.Open(input)
 	if err != nil {
