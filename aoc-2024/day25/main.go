@@ -21,13 +21,8 @@ func main() {
 
 		ans = solvePart1("./input.txt")
 		fmt.Println("Answer:", ans)
-	} else {
-		ans := solvePart2("./input_smpl.txt")
-		fmt.Println("Answer (sample):", ans)
-
-		// ans = solvePart2("./input.txt")
-		// fmt.Println("Answer:", ans)
 	}
+	// NOTE: there's no part 2
 }
 
 func solvePart1(input string) int {
@@ -143,21 +138,4 @@ func splitSchematics(data []byte, atEOF bool) (advance int, token []byte, err er
 		return len(data), data, nil
 	}
 	return
-}
-func solvePart2(input string) int {
-	file, err := os.Open(input)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer file.Close()
-
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		fmt.Println(scanner.Text())
-	}
-
-	if err := scanner.Err(); err != nil {
-		log.Println(err)
-	}
-	return 0
 }
