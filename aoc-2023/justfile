@@ -1,0 +1,4 @@
+create-day day:
+    cp day_tmpl.py day{{ day }}_a.py
+    cp day_tmpl.py day{{ day }}_b.py
+    touch inputs/day{{ day }}.txt
