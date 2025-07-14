@@ -1,15 +1,28 @@
+import argparse
 import re
+from collections.abc import Sequence
 from pathlib import Path
 
 parent = Path(__file__).parent
 
 
-def main() -> int:
-    print(part_1(True))
-    print(part_1())
+def main(argv: Sequence[str] | None = None) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("part", nargs="?", default=0, type=int)
+    args = parser.parse_args(argv)
 
-    print(part_2(True))
-    print(part_2())
+    if args.part == 0:
+        print(f"Part 1(sample): {part_1(True)}")
+        print(f"Part 1: {part_1()}")
+
+        print(f"Part 2 (sample): {part_2(True)}")
+        print(f"Part 2: {part_2()}")
+    elif args.part == 1:
+        print(f"Part 1 (sample): {part_1(True)}")
+        print(f"Part 1: {part_1()}")
+    elif args.part == 2:
+        print(f"Part 2 (sample): {part_2(True)}")
+        print(f"Part 2: {part_2()}")
 
     return 0
 
