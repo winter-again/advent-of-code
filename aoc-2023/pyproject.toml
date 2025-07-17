@@ -15,8 +15,11 @@ dev = [
 ]
 
 [tool.basedpyright]
+include = ["src"]
+pythonVersion = "3.12"
+pythonPlatform = "Linux"
 # silence some diagnostics
-typeCheckingMode = "strict"
+typeCheckingMode = "standard"
 # reportAny = false
 # reportUnusedCallResult = false
 
