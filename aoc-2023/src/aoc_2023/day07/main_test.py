@@ -18,4 +18,4 @@ def test_part_2_sample() -> None:
 
 def test_part_2() -> None:
     ans = part_2()
-    assert ans == 0
+    assert ans == 244848487
