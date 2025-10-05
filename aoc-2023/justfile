@@ -1,5 +1,5 @@
 @run day_num *args:
-    uv run ./src/aoc_2023/day{{ day_num }}/main.py {{ args }}
+    uv run -m src.aoc_2023.day{{ day_num }}.main {{ args }}
 
 test day_num part:
     uv run pytest ./src/aoc_2023/day{{ day_num }} -k part_{{ part }} -vv
