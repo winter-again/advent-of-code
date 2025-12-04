@@ -8,14 +8,14 @@ def test_part_1_sample() -> None:
 
 def test_part_1() -> None:
     ans = part_1()
-    assert ans == 0
+    assert ans == 17100
 
 
 def test_part_2_sample() -> None:
     ans = part_2(True)
-    assert ans == 0
+    assert ans == 3121910778619
 
 
 def test_part_2() -> None:
     ans = part_2()
-    assert ans == 0
+    assert ans == 170418192256861
