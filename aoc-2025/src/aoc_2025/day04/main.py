@@ -60,7 +60,7 @@ def part_1(sample: bool = False) -> int:
                 for di, dj in dirs:
                     ni = i + di
                     nj = j + dj
-                    if ni >= 0 and ni < m and nj >= 0 and nj < n and g[ni][nj] == "@":
+                    if 0 <= ni < m and 0 <= nj < n and g[ni][nj] == "@":
                         rolls += 1
 
                 if rolls < 4:
@@ -100,13 +100,7 @@ def part_2(sample: bool = False) -> int:
                     for di, dj in dirs:
                         ni = i + di
                         nj = j + dj
-                        if (
-                            ni >= 0
-                            and ni < m
-                            and nj >= 0
-                            and nj < n
-                            and g[ni][nj] == "@"
-                        ):
+                        if 0 <= ni < m and 0 <= nj < n and g[ni][nj] == "@":
                             rolls += 1
 
                     if rolls < 4:
