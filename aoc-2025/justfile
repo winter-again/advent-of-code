@@ -5,7 +5,7 @@
     uv run -m src.aoc_2025.day{{ day_num }}.main {{ args }}
 
 test day_num part *args:
-    uv run pytest ./src/aoc_2025/day{{ day_num }} -k part_{{ part }} {{ args }} -vv
+    uv run -m pytest src.aoc_2025.day{{ day_num }} -k part_{{ part }} -vv
 
 create day_num:
-    cp -r ./templ/day_templ ./src/aoc_2025/day{{ day_num }}
+    cp -r ./day_templ ./src/aoc_2025/day{{ day_num }}

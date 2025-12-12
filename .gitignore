@@ -1,0 +1,6 @@
+.aoc
+*.txt
+!day_templ/*.txt
+
+.venv/
+__pycache__/

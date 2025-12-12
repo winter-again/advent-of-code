@@ -1,5 +1,8 @@
-create-day day:
-    cp -r day_tmpl day{{day}}
+@_:
+    just --list
 
-test day part:
-    go test -run TestPart{{part}} ./day{{day}}/ -v
+test day_num part:
+    go test -run TestPart{{ part }} ./day{{ day_num }}/ -v
+
+create day_num:
+    cp -r ./day_templ day{{ day_num }}
