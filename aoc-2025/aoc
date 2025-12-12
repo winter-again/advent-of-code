@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+source ../.aoc
+
+if [[ -z "$1" ]] || [[ -z "$2" ]]; then
+    echo "Must provide both year and day. For example: aoc 2025 1"
+    exit 1
+fi
+
+year=$1
+day=$2
+day_dir=$(printf "%02d" "$2")
+url="https://adventofcode.com/$year/day/$day/input"
+
+echo "Fetching year=$year and day=$day: $url"
+curl --cookie "session=$COOKIE" -o "./src/aoc_2025/day$day_dir/input.txt" "$url"
