@@ -1,6 +1,9 @@
 @_:
     just --list
 
+get year day_num:
+    ./aoc {{ year }} {{ day_num }}
+
 @run day_num *args:
     uv run -m src.aoc_2023.day{{ day_num }}.main {{ args }}
 

@@ -1,6 +1,9 @@
 @_:
     just --list
 
+get year day_num:
+    ./aoc {{ year }} {{ day_num }}
+
 test day_num part:
     go test -run TestPart{{ part }} ./day{{ day_num }}/ -v
 
