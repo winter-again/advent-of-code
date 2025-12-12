@@ -91,7 +91,7 @@ def find_horizontal(pattern: list[list[str]], smudge: bool = False) -> tuple[int
             if u - i < 0 or d + i >= m:
                 break
 
-            for idx, (eu, ed) in enumerate(zip(pattern[u - i], pattern[d + i])):
+            for eu, ed in zip(pattern[u - i], pattern[d + i]):
                 if eu != ed:
                     diff += 1
 
