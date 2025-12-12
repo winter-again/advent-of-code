@@ -26,3 +26,8 @@ markers = [
     "sample: test for sample input",
     "real: test for real input"
 ]
+
+[tool.ruff.lint]
+ignore = [
+    "E741", # ignore ambiguous variable name lint
+]
