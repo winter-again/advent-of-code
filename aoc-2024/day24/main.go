@@ -27,7 +27,10 @@ func main() {
 		ans = solvePart1("./input.txt")
 		fmt.Println("Answer:", ans)
 	} else {
-		ans := solvePart2("./input.txt")
+		ans := solvePart2("./input_smpl_3.txt")
+		fmt.Println("Answer (sample_3):", ans)
+
+		ans = solvePart2("./input.txt")
 		fmt.Println("Answer:", ans)
 	}
 }

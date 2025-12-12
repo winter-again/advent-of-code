@@ -33,23 +33,25 @@ func TestPart1(t *testing.T) {
 }
 
 func TestPart2(t *testing.T) {
-	tests := []util.TestCase{
+	tests := []util.TestCaseDay18Part2{
 		{
 			Name:   "Part 2 (sample)",
 			Input:  "./input_smpl.txt",
-			Expect: 9999,
+			Sample: true,
+			Expect: "6,1",
 		},
 		{
 			Name:   "Part 2",
 			Input:  "./input.txt",
-			Expect: 9999,
+			Sample: false,
+			Expect: "54,44",
 		},
 	}
 
 	for _, test := range tests {
 		t.Run(test.Name, func(t *testing.T) {
-			if got := solvePart2(test.Input); got != test.Expect {
-				t.Errorf("%s: expected %d but got %d", test.Name, test.Expect, got)
+			if got := solvePart2(test.Input, test.Sample); got != test.Expect {
+				t.Errorf("%s: expected %s but got %s", test.Name, test.Expect, got)
 			}
 		})
 	}

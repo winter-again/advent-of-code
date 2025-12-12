@@ -19,3 +19,10 @@ type TestCaseDay17Part1 struct {
 	Input  string
 	Expect string
 }
+
+type TestCaseDay18Part2 struct {
+	Name   string
+	Input  string
+	Sample bool
+	Expect string
+}
