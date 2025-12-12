@@ -24,6 +24,11 @@ typeCheckingMode = "standard"
 # reportAny = false
 # reportUnusedCallResult = false
 
+[tool.ruff.lint]
+ignore = [
+    "E741", # ignore ambiguous variable name lint
+]
+
 # [tool.pytest.ini_options]
 # markers = [
 #     "sample: test for sample input",
