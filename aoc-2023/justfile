@@ -8,7 +8,7 @@ get year day_num:
     uv run -m src.aoc_2023.day{{ day_num }}.main {{ args }}
 
 test day_num part:
-    uv run -m pytest src.aoc_2023.day{{ day_num }} -k part_{{ part }} -vv
+    uv run -m pytest src/aoc_2023/day{{ day_num }} -k part_{{ part }} -vv
 
 create day_num:
     cp -r ./day_templ ./src/aoc_2023/day{{ day_num }}

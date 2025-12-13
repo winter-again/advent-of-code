@@ -13,4 +13,4 @@ day_dir=$(printf "%02d" "$2")
 url="https://adventofcode.com/$year/day/$day/input"
 
 echo "Fetching year=$year and day=$day: $url"
-curl --cookie "session=$COOKIE" -o "./src/aoc_2025/day$day_dir/input.txt" "$url"
+curl --cookie "session=$COOKIE" -o "./src/aoc_2023/day$day_dir/input.txt" "$url"
