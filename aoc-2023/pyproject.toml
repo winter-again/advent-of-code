@@ -21,11 +21,11 @@ typeCheckingMode = "standard"
 # reportAny = false
 # reportUnusedCallResult = false
 
-[tool.pytest.ini_options]
-markers = [
-    "sample: test for sample input",
-    "real: test for real input"
-]
+# [tool.pytest.ini_options]
+# markers = [
+#     "sample: test for sample input",
+#     "real: test for real input"
+# ]
 
 [tool.ruff.lint]
 ignore = [
